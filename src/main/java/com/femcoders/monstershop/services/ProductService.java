@@ -1,7 +1,9 @@
 package com.femcoders.monstershop.services;
 import com.femcoders.monstershop.models.Product;
 import com.femcoders.monstershop.repositories.ProductRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class ProductService {
         return productRepository.findById(id).orElse(null);
     }
 
-    public Product addProduct(Product newProduct){
+    public Product addProduct(Product newProduct) {
         return productRepository.save(newProduct);
     }
 
@@ -36,5 +38,12 @@ public class ProductService {
         productRepository.save(existingProduct);
     }
 
+    public void deleteProduct(Long id) {
+        if (productRepository.existsById(id)) {
+            productRepository.deleteById(id);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID: " + id + " No encontrado!");
+        }
+    }
 }
 
