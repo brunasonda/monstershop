@@ -3,10 +3,7 @@ import com.femcoders.monstershop.models.Product;
 import com.femcoders.monstershop.services.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +21,13 @@ public class ProductController {
         return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
         //return eventService.getAllEvents();
     }
+
+    @GetMapping("/api/products/{productId}")
+    public Product listProductsById(@PathVariable("productId") Long id) {
+        return productService.listProductsById(id);
+    }
+
+
     @PostMapping("/api/products")
     public ResponseEntity<Product> addProduct(@RequestBody Product newProduct) {
         Product createdProduct = productService.addProduct(newProduct);
