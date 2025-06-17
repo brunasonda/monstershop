@@ -7,12 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="Reviews")
+@Table(name="reviews")
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long product_id;
     private String username;
     private int rating;
     private String body;
@@ -20,7 +19,6 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-    private List<Product> products = new ArrayList<>();
 
     public Review() {
     }
@@ -35,14 +33,6 @@ public class Review {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getProduct_id() {
-        return product_id;
-    }
-
-    public void setProduct_id(Long product_id) {
-        this.product_id = product_id;
     }
 
     public String getUsername() {
@@ -69,11 +59,11 @@ public class Review {
         this.body = body;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

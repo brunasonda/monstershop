@@ -5,9 +5,7 @@ import com.femcoders.monstershop.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,8 +18,14 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-        @GetMapping("/api/reviews/{productId}")
+    @GetMapping("/api/reviews/{productId}")
         public ResponseEntity<List<Review>> getReviewsByProductId(@PathVariable Long productId) {
             return ResponseEntity.ok(reviewService.getReviewsByProductId(productId));
         }
+
+    @PostMapping("/api/reviews")
+    public ResponseEntity<Review> addReview(@RequestBody Review review) {
+        Review savedReview = reviewService.addReview(review);
+        return new ResponseEntity<>(savedReview, HttpStatus.CREATED);
+    }
 }

@@ -14,4 +14,8 @@ public class ReviewService {
     public List<Review> getReviewsByProductId(Long productId) {
             return reviewRepository.findByProductId(productId);
         }
+
+    public Review addReview(Review review) {
+            return reviewRepository.save(review);
+    }
 }
