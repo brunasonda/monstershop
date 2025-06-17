@@ -25,5 +25,16 @@ public class ProductService {
         return productRepository.save(newProduct);
     }
 
+    public void editProduct(Long id, Product updatedProduct) {
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No encontrado!"));
+
+        existingProduct.setName(updatedProduct.getName());
+        existingProduct.setPrice(updatedProduct.getPrice());
+        existingProduct.setImageUrl(updatedProduct.getImageUrl());
+
+        productRepository.save(existingProduct);
+    }
+
 }
 

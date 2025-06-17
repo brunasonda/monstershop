@@ -27,10 +27,16 @@ public class ProductController {
         return productService.listProductsById(id);
     }
 
-
     @PostMapping("/api/products")
     public ResponseEntity<Product> addProduct(@RequestBody Product newProduct) {
         Product createdProduct = productService.addProduct(newProduct);
         return new ResponseEntity<Product>(createdProduct, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/api/products/{id}")
+    public void updateProduct(
+            @PathVariable Long id,
+            @RequestBody Product updatedProduct) {
+        productService.editProduct(id, updatedProduct);
     }
 }
