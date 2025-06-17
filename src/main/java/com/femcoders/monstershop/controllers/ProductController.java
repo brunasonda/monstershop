@@ -1,6 +1,5 @@
 package com.femcoders.monstershop.controllers;
-import com.femcoders.events.models.Event;
-import com.femcoders.events.services.EventService;
+import com.femcoders.monstershop.models.Product;
 import com.femcoders.monstershop.services.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,4 +18,10 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @GetMapping("/api/products")
+    public ResponseEntity<List<Product>> getAllProducts() {
+        List<Product> products = productService.getAllProducts();
+        return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
+        //return eventService.getAllEvents();
+    }
 }
