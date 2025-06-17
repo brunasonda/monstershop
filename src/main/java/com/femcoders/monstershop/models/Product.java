@@ -17,16 +17,6 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, String name, double price, String imageUrl, double rating, int reviewCount, boolean featured) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.imageUrl = imageUrl;
-        this.rating = rating;
-        this.reviewCount = reviewCount;
-        this.featured = featured;
-    }
-
     public Long getId() {
         return id;
     }

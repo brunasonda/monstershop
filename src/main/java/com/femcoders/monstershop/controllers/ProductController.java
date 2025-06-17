@@ -24,4 +24,9 @@ public class ProductController {
         return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
         //return eventService.getAllEvents();
     }
+    @PostMapping("/api/products")
+    public ResponseEntity<Product> addProduct(@RequestBody Product newProduct) {
+        Product createdProduct = productService.addProduct(newProduct);
+        return new ResponseEntity<Product>(createdProduct, HttpStatus.CREATED);
+    }
 }
