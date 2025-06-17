@@ -1,0 +1,77 @@
+package com.femcoders.monstershop.models;
+
+import jakarta.persistence.*;
+
+import java.security.PrivateKey;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name="Reviews")
+public class Review {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Long product_id;
+    private String username;
+    private int rating;
+    private String body;
+
+    @OneToMany(mappedBy = "Review")
+    private List<Product> products = new ArrayList<>();
+
+    public Review() {
+    }
+
+    public Review(String username) {
+     this.username = username;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(Long product_id) {
+        this.product_id = product_id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+}
