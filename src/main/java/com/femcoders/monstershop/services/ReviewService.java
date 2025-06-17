@@ -1,7 +1,8 @@
 package com.femcoders.monstershop.services;
-
 import com.femcoders.monstershop.repositories.ReviewRepository;
 import org.springframework.stereotype.Service;
+import com.femcoders.monstershop.models.Review;
+import java.util.List;
 
 @Service
 public class ReviewService {
@@ -10,4 +11,7 @@ public class ReviewService {
         this.reviewRepository = reviewRepository;
     }
 
+    public List<Review> getReviewsByProductId(Long productId) {
+            return reviewRepository.findByProductId(productId);
+        }
 }

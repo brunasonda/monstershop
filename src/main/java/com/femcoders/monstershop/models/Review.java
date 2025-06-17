@@ -17,7 +17,9 @@ public class Review {
     private int rating;
     private String body;
 
-    @OneToMany(mappedBy = "Review")
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
     private List<Product> products = new ArrayList<>();
 
     public Review() {
