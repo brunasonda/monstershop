@@ -71,4 +71,6 @@ public class Review {
     public void setProduct(Product product) {
         this.product = product;
     }
+
+
 }

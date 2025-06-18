@@ -1,12 +1,10 @@
 package com.femcoders.monstershop.controllers;
 import com.femcoders.monstershop.models.Review;
-import com.femcoders.monstershop.models.Product;
-import com.femcoders.monstershop.services.ReviewService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.femcoders.monstershop.dtos.review.ReviewRequest;
+import com.femcoders.monstershop.services.ReviewService;
 
 import java.util.List;
 
@@ -20,7 +18,7 @@ public class ReviewController {
     }
 
     @GetMapping("/api/reviews/{productId}")
-    public ResponseEntity<List<Review>> getReviewsByProductId(@PathVariable Long productId) {
+    public ResponseEntity<List<Review>> getReviewsByProductId(@PathVariable("productId") Long productId) {
         return ResponseEntity.ok(reviewService.getReviewsByProductId(productId));
     }
 
