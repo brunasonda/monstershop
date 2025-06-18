@@ -24,7 +24,7 @@ public class Review {
     }
 
     public Review(String username) {
-     this.username = username;
+        this.username = username;
     }
 
     public Long getId() {

@@ -1,5 +1,7 @@
 package com.femcoders.monstershop.models;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "products")
@@ -15,6 +17,9 @@ public class Product {
     private boolean featured;
 
     public Product() {
+    }
+
+    public Product(Long id, @NotBlank(message = "Price is required") double price, @NotBlank(message = "Price is required") double price1, @NotBlank(message = "Image URL is required") String s, double rating, int i, boolean featured) {
     }
 
     public Long getId() {

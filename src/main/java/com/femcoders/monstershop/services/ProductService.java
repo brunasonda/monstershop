@@ -1,9 +1,13 @@
 package com.femcoders.monstershop.services;
+import com.femcoders.monstershop.dtos.product.ProductMapper;
+import com.femcoders.monstershop.dtos.product.ProductResponse;
 import com.femcoders.monstershop.models.Product;
 import com.femcoders.monstershop.repositories.ProductRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import com.femcoders.monstershop.dtos.product.ProductMapper;
+import com.femcoders.monstershop.controllers.ProductController;
 
 import java.util.List;
 
@@ -15,19 +19,22 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<ProductResponse> getAllProducts() {
+        List<Product> products = productRepository.findAll();
+        return products.stream().map(product -> ProductMapper.entityToDto(product)).toList();
     }
 
-    public Product listProductsById(Long id) {
-        return productRepository.findById(id).orElse(null);
+    public ProductResponse listProductsById(Long id) {
+        Product product = productRepository.findById(id).orElse(null);
+        return product != null ? ProductMapper.entityToDto(product) : null;
     }
 
-    public Product addProduct(Product newProduct) {
-        return productRepository.save(newProduct);
+    public ProductResponse addProduct(Product newProduct) {
+        Product createdProduct = productRepository.save(newProduct);
+        return ProductMapper.entityToDto(createdProduct);
     }
 
-    public void editProduct(Long id, Product updatedProduct) {
+    public ProductResponse editProduct(Long id, Product updatedProduct) {
         Product existingProduct = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No encontrado!"));
 
@@ -35,15 +42,16 @@ public class ProductService {
         existingProduct.setPrice(updatedProduct.getPrice());
         existingProduct.setImageUrl(updatedProduct.getImageUrl());
 
-        productRepository.save(existingProduct);
+        Product savedProduct = productRepository.save(existingProduct);
+        return ProductMapper.entityToDto(savedProduct);
     }
 
-    public void deleteProduct(Long id) {
-        if (productRepository.existsById(id)) {
-            productRepository.deleteById(id);
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID: " + id + " No encontrado!");
-        }
+    public ProductResponse deleteProduct(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID: " + id + " No encontrado!"));
+
+        productRepository.deleteById(id);
+
+        return ProductMapper.entityToDto(product);
     }
 }
-

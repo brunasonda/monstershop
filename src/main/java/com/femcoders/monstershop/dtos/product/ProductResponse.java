@@ -1,4 +1,13 @@
 package com.femcoders.monstershop.dtos.product;
 
-public class ProductResponse {
+public record ProductResponse(
+        Long id,
+        String name,
+        double price,
+        String imageUrl,
+        double rating,
+        int reviewCount,
+        boolean featured
+) {
 }
+

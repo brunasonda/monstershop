@@ -4,6 +4,7 @@ import com.femcoders.monstershop.services.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.femcoders.monstershop.dtos.product.*;
 
 import java.util.List;
 
@@ -16,32 +17,32 @@ public class ProductController {
     }
 
     @GetMapping("/api/products")
-    public ResponseEntity<List<Product>> getAllProducts() {
-        List<Product> products = productService.getAllProducts();
-        return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
-        //return eventService.getAllEvents();
+    public ResponseEntity<List<ProductResponse>> getAllProducts() {
+        return new ResponseEntity<>(productService.getAllProducts(),HttpStatus.OK);
     }
 
     @GetMapping("/api/products/{productId}")
-    public Product listProductsById(@PathVariable("productId") Long id) {
+    public ProductResponse getProductById(@PathVariable("productId") Long id) {
         return productService.listProductsById(id);
     }
 
     @PostMapping("/api/products")
-    public ResponseEntity<Product> addProduct(@RequestBody Product newProduct) {
-        Product createdProduct = productService.addProduct(newProduct);
-        return new ResponseEntity<Product>(createdProduct, HttpStatus.CREATED);
+    public ResponseEntity<ProductResponse> addProduct(@RequestBody Product newProduct) {
+        ProductResponse createdProduct = productService.addProduct(newProduct);
+        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 
     @PutMapping("/api/products/{id}")
-    public void updateProduct(
+    public ResponseEntity updateProduct(
             @PathVariable Long id,
             @RequestBody Product updatedProduct) {
-        productService.editProduct(id, updatedProduct);
+        ProductResponse productResponse = productService.editProduct(id, updatedProduct);
+        return ResponseEntity.ok(productResponse);
     }
 
     @DeleteMapping("/api/products/{id}")
-    public void deleteProduct(@PathVariable Long id) {
-        productService.deleteProduct(id);
+    public ResponseEntity deleteProduct(@PathVariable Long id) {
+        ProductResponse productResponse = productService.deleteProduct(id);
+        return ResponseEntity.ok(productResponse);
     }
 }
