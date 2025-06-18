@@ -11,3 +11,7 @@ public class MonstershopApplication {
 	}
 
 }
+
+//hacer el review request (dtos) que reciba además de los 3 campos (productId, username, body, rating)
+//en servicio recuperar ese id, buscar el producto por ese id y setear ese producto, añadir a la review (setProduct) y guardar la review
+

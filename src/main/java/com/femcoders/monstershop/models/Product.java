@@ -1,5 +1,8 @@
 package com.femcoders.monstershop.models;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "products")
@@ -7,11 +10,20 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank(message = "Name is required")
     private String name;
+
+    @Positive(message = "Price must be positive")
     private double price;
+
+    @NotBlank(message = "Image URL is required")
     private String imageUrl;
-    private double rating;
+
+    private int rating;
+
     private int reviewCount;
+
     private boolean featured;
 
     public Product() {
@@ -22,7 +34,6 @@ public class Product {
         this.name = name;
         this.price = price;
         this.imageUrl = imageUrl;
-        this.rating = rating;
         this.reviewCount = reviewCount;
         this.featured = featured;
     }
@@ -63,7 +74,7 @@ public class Product {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 
